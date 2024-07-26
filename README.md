@@ -24,24 +24,23 @@ This is a simple real-time chat application using Node.js, Express, and Socket.i
    git clone https://github.com/your-username/chat-app.git
    cd chat-app
 
-Install dependencies:
+## Install dependencies:
 
-bash
-Copy code
 npm install
-Set up MongoDB:
+
+## Set up MongoDB:
 
 Ensure MongoDB is running locally or adjust the connection string in server/users.js and server/messages.js.
 
-Running the Application
-Start the server:
+## Running the Application
+## Start the server:
 
 node server/server.js
-Open the browser:
+## Open the browser:
 
 Navigate to http://localhost:3000.
 
-API Endpoints
+## API Endpoints
 POST /auth/register: Register a new user.
 
 Body: { "username": "user", "password": "pass" }
@@ -49,12 +48,12 @@ POST /auth/login: Login and receive a JWT token.
 
 Body: { "username": "user", "password": "pass" }
 
-Development
-User Authentication: Implemented using JWT and bcrypt.
-Private Messaging: Allows direct messages between users.
-Message History: Stored in MongoDB for retrieval.
+## Development
+-**User Authentication:** Implemented using JWT and bcrypt.
+-**Private Messaging:** Allows direct messages between users.
+-**Message History:** Stored in MongoDB for retrieval.
 
-Contributing
+## Contributing
 Feel free to open issues or submit pull requests.
 
 
