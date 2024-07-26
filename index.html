@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <ul id="messages"></ul>
+  <form id="form" action="">
+    <input id="input" autocomplete="off" placeholder="Type a message" /><button>Send</button>
+    <input id="private-id" autocomplete="off" placeholder="Recipient ID" />
+    <button id="private-btn">Send Private</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var privateIdInput = document.getElementById('private-id');
+    var privateBtn = document.getElementById('private-btn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    privateBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (privateIdInput.value && input.value) {
+        socket.emit('private message', { recipientId: privateIdInput.value, msg: input.value });
+        input.value = '';
+        privateIdInput.value = '';
+      }
+    });
+
+    socket.on('chat message', function(msg) {
+      var item = document.createElement('li');
+      item.textContent = msg;
+      document.getElementById('messages').appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+
+    socket.on('private message', function({ sender, msg }) {
+      var item = document.createElement('li');
+      item.textContent = `Private from ${sender}: ${msg}`;
+      document.getElementById('messages').appendChild(item);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
+</body>
+</html>
